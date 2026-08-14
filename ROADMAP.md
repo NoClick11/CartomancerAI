@@ -23,5 +23,3 @@ imply priority.
   keep a consistent visual style across maps.
 - **Completion notifications** (webhook, desktop notification) — today you
   have to run `cartomancer status` to know a job finished.
-- **Multi-worker / multi-GPU** — the current design deliberately assumes a
-  single GPU processing one job at a time.

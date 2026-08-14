@@ -9,11 +9,15 @@ services:
     networks: [cartomancer-net]
 
   cartomancer:
-    build: ./docker/cartomancer
+    build:
+      context: .
+      dockerfile: docker/cartomancer/Dockerfile
     environment:
       CARTOMANCER_COMFYUI_URL: http://comfyui:8188
       CARTOMANCER_DB_PATH: /data/db/cartomancer.sqlite3
       CARTOMANCER_OUTPUT_DIR: /data/output
+      CARTOMANCER_DEFAULT_UNET_FILENAME: ${CARTOMANCER_DEFAULT_UNET_FILENAME:-flux1-dev-Q4_K_S.gguf}
+      CARTOMANCER_DEFAULT_CLIP_T5_FILENAME: ${CARTOMANCER_DEFAULT_CLIP_T5_FILENAME:-t5-v1_1-xxl-encoder-Q4_K_S.gguf}
     volumes:
       - ${DATA_DIR:-./data}/db:/data/db
       - ${DATA_DIR:-./data}/output:/data/output
