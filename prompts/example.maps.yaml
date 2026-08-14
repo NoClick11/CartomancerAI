@@ -1,0 +1,31 @@
+defaults:
+  width: 1024
+  height: 1024
+  steps: 20
+  guidance: 3.5
+  tags: [example]
+
+maps:
+  - id: forest-ruins-01
+    name: "Ruins in the Ancient Forest"
+    prompt: >
+      top-down fantasy RPG battle map, ancient ruins overgrown with vines,
+      moss-covered stone, dappled sunlight, hand-painted style, high detail
+    tags: [forest, ruins, outdoor, battle]
+    width: 1536
+    height: 1024
+    notes: "for the chapter 3 dungeon"
+
+  - id: tavern-interior-01
+    name: "The Golden Boar Tavern"
+    prompt: >
+      cozy fantasy tavern interior, top-down RPG map, wooden tables,
+      warm lighting, fireplace, hand-painted style
+    tags: [tavern, interior, town]
+
+  - id: mountain-pass-01
+    name: "Frostfang Pass"
+    prompt: >
+      top-down fantasy RPG battle map, narrow snowy mountain pass, jagged
+      cliffs, frozen waterfall, overcast sky, hand-painted style, high detail
+    tags: [mountain, outdoor, battle]

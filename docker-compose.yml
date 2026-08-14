@@ -1,0 +1,29 @@
+services:
+  comfyui:
+    build: ./docker/comfyui
+    volumes:
+      - ${MODELS_DIR:-./data/models}:/opt/ComfyUI/models
+      - ${COMFYUI_OUTPUT_DIR:-./data/comfyui-output}:/opt/ComfyUI/output
+    ports:
+      - "${COMFYUI_PORT:-8188}:8188"
+    networks: [cartomancer-net]
+
+  cartomancer:
+    build: ./docker/cartomancer
+    environment:
+      CARTOMANCER_COMFYUI_URL: http://comfyui:8188
+      CARTOMANCER_DB_PATH: /data/db/cartomancer.sqlite3
+      CARTOMANCER_OUTPUT_DIR: /data/output
+    volumes:
+      - ${DATA_DIR:-./data}/db:/data/db
+      - ${DATA_DIR:-./data}/output:/data/output
+      - ${PROMPTS_DIR:-./prompts}:/data/prompts
+    depends_on:
+      - comfyui
+    networks: [cartomancer-net]
+    # A job can run 10-20 minutes; don't let Docker kill it mid-generation
+    # when stopping the stack.
+    stop_grace_period: 35m
+
+networks:
+  cartomancer-net: {}

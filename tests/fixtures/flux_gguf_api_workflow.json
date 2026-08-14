@@ -1,0 +1,57 @@
+{
+  "unet_loader": {
+    "class_type": "UnetLoaderGGUF",
+    "inputs": { "unet_name": "flux1-dev-Q4_K_S.gguf" }
+  },
+  "clip_loader": {
+    "class_type": "DualCLIPLoaderGGUF",
+    "inputs": {
+      "clip_name1": "t5-v1_1-xxl-encoder-Q4_K_S.gguf",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    }
+  },
+  "vae_loader": {
+    "class_type": "VAELoader",
+    "inputs": { "vae_name": "ae.safetensors" }
+  },
+  "positive_encode": {
+    "class_type": "CLIPTextEncode",
+    "inputs": { "text": "a test prompt", "clip": ["clip_loader", 0] }
+  },
+  "positive_guided": {
+    "class_type": "FluxGuidance",
+    "inputs": { "conditioning": ["positive_encode", 0], "guidance": 4.0 }
+  },
+  "negative": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": { "conditioning": ["positive_encode", 0] }
+  },
+  "empty_latent": {
+    "class_type": "EmptyLatentImage",
+    "inputs": { "width": 1024, "height": 768, "batch_size": 1 }
+  },
+  "sampler": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["unet_loader", 0],
+      "positive": ["positive_guided", 0],
+      "negative": ["negative", 0],
+      "latent_image": ["empty_latent", 0],
+      "seed": 42,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "vae_decode": {
+    "class_type": "VAEDecode",
+    "inputs": { "samples": ["sampler", 0], "vae": ["vae_loader", 0] }
+  },
+  "save_image": {
+    "class_type": "SaveImage",
+    "inputs": { "images": ["vae_decode", 0], "filename_prefix": "cartomancer/test-uid-1234" }
+  }
+}

@@ -1,0 +1,19 @@
+# EXPERIMENTAL / UNVALIDATED - no AMD hardware was available to test this.
+# See ROADMAP.md. Contributions validating and fixing this are welcome.
+#
+# Usage (untested):
+#   docker compose -f docker-compose.yml -f docker-compose.rocm.yml up -d --build
+#
+# Builds the comfyui service from a ROCm base image instead of CUDA, and
+# passes through the AMD GPU device nodes directly - there's no ROCm
+# equivalent of the NVIDIA Container Toolkit's `--gpus` integration.
+services:
+  comfyui:
+    build:
+      context: ./docker/comfyui
+      dockerfile: Dockerfile.rocm
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
