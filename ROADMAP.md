@@ -21,5 +21,14 @@ imply priority.
   map library grows.
 - **Batch generation / variations** (N seeds per prompt) and LoRA support to
   keep a consistent visual style across maps.
+  **Confirmed during real end-to-end testing (2026-08-15):** base Flux.1 dev,
+  even with an "orthographic top-down / bird's eye view / battle map" prompt
+  and a raised guidance value, still renders as a cinematic illustration
+  (perspective, dramatic lighting/shadows) rather than the flat, geometric
+  style expected of a tabletop battle map. Prompt tuning improved
+  top-down-ness and detail level, but couldn't fully override the base
+  model's bias — a LoRA trained on real battle maps is very likely required
+  to actually hit the flat/orthographic VTT-map style, not just a nice-to-have
+  for consistency. This is the next real gap to close after v1.
 - **Completion notifications** (webhook, desktop notification) — today you
   have to run `cartomancer status` to know a job finished.

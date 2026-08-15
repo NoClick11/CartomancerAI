@@ -1,0 +1,17 @@
+defaults:
+  width: 1024
+  height: 1024
+  steps: 20
+  guidance: 4.5
+  tags: [test, topdown]
+
+maps:
+  - id: graveyard-topdown-01
+    name: "Graveyard (top-down retry)"
+    prompt: >
+      orthographic top-down view, directly overhead camera angle, bird's eye
+      view, RPG tabletop battle map, flat lay, no horizon, no sky, no
+      characters, small abandoned graveyard, cracked tombstones laid out in
+      rows, dead trees, gravel paths, patchy grass, hand-painted texture,
+      high detail
+    notes: "retry of first-real-test.txt, forcing top-down perspective"

@@ -1,0 +1,21 @@
+defaults:
+  width: 1024
+  height: 1024
+  steps: 30
+  guidance: 4.5
+  tags: [test, topdown, strahd, interior]
+
+maps:
+  - id: ravenloft-great-hall
+    name: "Castle Ravenloft - Great Hall"
+    prompt: >
+      orthographic top-down view, directly overhead camera angle, bird's eye
+      view, RPG tabletop battle map, no characters, gothic castle great hall,
+      black and white checkered marble floor, two curved grand staircases
+      facing each other leading to a upper balcony, tall gothic stained glass
+      windows along the walls, tattered dark red velvet tapestries, wrought
+      iron candelabras with dripping wax, ornate rugs, cobwebs in the
+      corners, cracked stone columns, dusty and ominous atmosphere,
+      hand-painted texture, intricate details, fine linework, highly
+      detailed, high resolution
+    notes: "detail test, Curse of Strahd - Castle Ravenloft great hall"

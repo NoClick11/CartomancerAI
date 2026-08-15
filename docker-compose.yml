@@ -1,6 +1,7 @@
 services:
   comfyui:
     build: ./docker/comfyui
+    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ${MODELS_DIR:-./data/models}:/opt/ComfyUI/models
       - ${COMFYUI_OUTPUT_DIR:-./data/comfyui-output}:/opt/ComfyUI/output
@@ -12,6 +13,7 @@ services:
     build:
       context: .
       dockerfile: docker/cartomancer/Dockerfile
+    user: "${UID:-1000}:${GID:-1000}"
     environment:
       CARTOMANCER_COMFYUI_URL: http://comfyui:8188
       CARTOMANCER_DB_PATH: /data/db/cartomancer.sqlite3

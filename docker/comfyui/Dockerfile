@@ -32,6 +32,14 @@ RUN git clone https://github.com/city96/ComfyUI-GGUF.git custom_nodes/ComfyUI-GG
     && git checkout ${GGUF_NODE_REF} \
     && pip install --no-cache-dir -r requirements.txt
 
+# docker-compose runs this container as a non-root uid (see `user:` in
+# docker-compose.yml) so files written into bind mounts stay owned by the
+# host user instead of root. Everything ComfyUI writes outside those mounts
+# (user/, temp/, input/) lives under /opt/ComfyUI, so it needs to be owned
+# by that same uid ahead of time.
+RUN chown -R 1000:1000 /opt/ComfyUI
+ENV HOME=/tmp
+
 EXPOSE 8188
 
 CMD ["python3", "main.py", "--listen", "0.0.0.0", "--port", "8188"]

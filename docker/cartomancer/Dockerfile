@@ -13,5 +13,10 @@ RUN uv sync --frozen --no-dev
 
 ENV PATH="/app/.venv/bin:${PATH}"
 
+# docker-compose runs this container as a non-root uid (see `user:` in
+# docker-compose.yml); HOME needs to point somewhere world-writable since
+# that uid has no /etc/passwd entry and /app is owned by root.
+ENV HOME=/tmp
+
 ENTRYPOINT ["cartomancer"]
 CMD ["worker", "start"]
